@@ -1,0 +1,176 @@
+2026-03-26 20:14:18,974 - celery.worker.consumer.connection - INFO - Connected to redis://127.0.0.1:6379/1
+2026-03-26 20:14:18,976 - celery.worker.consumer.mingle - INFO - mingle: searching for neighbors
+2026-03-26 20:14:19,994 - celery.worker.consumer.mingle - INFO - mingle: all alone
+2026-03-26 20:14:20,001 - celery.worker.pidbox - INFO - pidbox: Connected to redis://127.0.0.1:6379/1.
+2026-03-26 20:14:20,025 - celery.apps.worker - INFO - celery@LAPTOP-C16L36BH ready.
+2026-03-26 20:16:40,682 - celery.worker.strategy - INFO - Task OAback.celery.debug_task[57ca7b94-4cf9-4176-b6a7-fa657d4c1f32] received
+2026-03-26 20:16:40,682 - celery.redirected - WARNING - xxxxxxxxxxxxxxxxxxxxxxxxxxx
+2026-03-26 20:16:40,731 - celery.app.trace - INFO - Task OAback.celery.debug_task[57ca7b94-4cf9-4176-b6a7-fa657d4c1f32] succeeded in 0.046999999998661224s: None
+2026-03-26 20:56:07,206 - celery.worker.consumer.consumer - WARNING - consumer: Connection to broker lost. Trying to re-establish the connection...
+Traceback (most recent call last):
+  File "E:\Python\Lib\site-packages\redis\connection.py", line 650, in read_response
+    response = self._parser.read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\redis\_parsers\resp2.py", line 15, in read_response
+    result = self._read_response(disable_decoding=disable_decoding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\redis\_parsers\resp2.py", line 25, in _read_response
+    raw = self._buffer.readline()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\redis\_parsers\socket.py", line 115, in readline
+    self._read_from_socket()
+  File "E:\Python\Lib\site-packages\redis\_parsers\socket.py", line 65, in _read_from_socket
+    data = self._sock.recv(socket_read_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\gevent\_socketcommon.py", line 656, in recv
+    return self._sock.recv(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "E:\Python\Lib\site-packages\celery\worker\consumer\consumer.py", line 346, in start
+    blueprint.start(self)
+  File "E:\Python\Lib\site-packages\celery\bootsteps.py", line 116, in start
+    step.start(parent)
+  File "E:\Python\Lib\site-packages\celery\worker\consumer\consumer.py", line 788, in start
+    c.loop(*c.loop_args())
+  File "E:\Python\Lib\site-packages\celery\worker\loops.py", line 136, in synloop
+    _loop_cycle()
+  File "E:\Python\Lib\site-packages\celery\worker\loops.py", line 125, in _loop_cycle
+    connection.drain_events(timeout=2.0)
+  File "E:\Python\Lib\site-packages\kombu\connection.py", line 343, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\kombu\transport\virtual\base.py", line 997, in drain_events
+    get(self._deliver, timeout=timeout)
+  File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 601, in get
+    ret = self.handle_event(fileno, event)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 583, in handle_event
+    return self.on_readable(fileno), self
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 579, in on_readable
+    chan.handlers[type]()
+  File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 982, in _brpop_read
+    dest__item = self.client.parse_response(self.client.connection,
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\redis\client.py", line 651, in parse_response
+    response = connection.read_response()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Python\Lib\site-packages\redis\connection.py", line 658, in read_response
+    raise ConnectionError(f"Error while reading from {host_error} : {e.args}")
+redis.exceptions.ConnectionError: Error while reading from 127.0.0.1:6379 : (10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None)
+2026-03-26 20:56:09,277 - py.warnings - WARNING - E:\Python\Lib\site-packages\celery\worker\consumer\consumer.py:397: CPendingDeprecationWarning: 
+In Celery 5.1 we introduced an optional breaking change which
+on connection loss cancels all currently executed tasks with late acknowledgement enabled.
+These tasks cannot be acknowledged as the connection is gone, and the tasks are automatically redelivered
+back to the queue. You can enable this behavior using the worker_cancel_long_running_tasks_on_connection_loss
+setting. In Celery 5.1 it is set to False by default. The setting will be set to True by default in Celery 6.0.
+
+  warnings.warn(CANCEL_TASKS_BY_DEFAULT, CPendingDeprecationWarning)
+
+2026-03-26 20:56:09,278 - celery.worker.consumer.consumer - INFO - Temporarily reducing the prefetch count to 4 to avoid over-fetching since 0 tasks are currently being processed.
+The prefetch count will be gradually restored to 0 as the tasks complete processing.
+2026-03-26 20:56:11,332 - celery.redirected - WARNING - Traceback (most recent call last):
+2026-03-26 20:56:11,333 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 650, in read_response
+    response = self._parser.read_response(disable_decoding=disable_decoding)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,333 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\_parsers\resp2.py", line 15, in read_response
+    result = self._read_response(disable_decoding=disable_decoding)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,333 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\_parsers\resp2.py", line 25, in _read_response
+    raw = self._buffer.readline()
+          ^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,333 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\_parsers\socket.py", line 115, in readline
+    self._read_from_socket()
+2026-03-26 20:56:11,333 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\_parsers\socket.py", line 65, in _read_from_socket
+    data = self._sock.recv(socket_read_size)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,333 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\gevent\_socketcommon.py", line 656, in recv
+    return self._sock.recv(*args)
+           ^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,333 - celery.redirected - WARNING - ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+2026-03-26 20:56:11,333 - celery.redirected - WARNING - 
+During handling of the above exception, another exception occurred:
+2026-03-26 20:56:11,333 - celery.redirected - WARNING - Traceback (most recent call last):
+2026-03-26 20:56:11,334 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+2026-03-26 20:56:11,334 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\client.py", line 915, in <lambda>
+    lambda: command(*args, **kwargs),
+            ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,334 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\client.py", line 936, in try_read
+    return conn.read_response(disconnect_on_error=False, push_request=True)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,334 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 658, in read_response
+    raise ConnectionError(f"Error while reading from {host_error} : {e.args}")
+2026-03-26 20:56:11,334 - celery.redirected - WARNING - redis.exceptions.ConnectionError: Error while reading from 127.0.0.1:6379 : (10054, '远程主机强迫关闭了一个现有的连接。', None, 10054, None)
+2026-03-26 20:56:11,334 - celery.redirected - WARNING - 
+During handling of the above exception, another exception occurred:
+2026-03-26 20:56:11,335 - celery.redirected - WARNING - Traceback (most recent call last):
+2026-03-26 20:56:11,335 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 389, in connect_check_health
+    sock = self.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,335 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\retry.py", line 105, in call_with_retry
+    return do()
+           ^^^^
+2026-03-26 20:56:11,335 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 390, in <lambda>
+    lambda: self._connect(), lambda error: self.disconnect(error)
+            ^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,335 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 803, in _connect
+    raise err
+2026-03-26 20:56:11,335 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 787, in _connect
+    sock.connect(socket_address)
+2026-03-26 20:56:11,336 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\gevent\_socketcommon.py", line 586, in connect
+    self._internal_connect(address)
+2026-03-26 20:56:11,336 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\gevent\_socketcommon.py", line 630, in _internal_connect
+    raise _SocketError(err, strerror(err))
+2026-03-26 20:56:11,336 - celery.redirected - WARNING - ConnectionRefusedError: [Errno 10061] [WinError 10061] 由于目标计算机积极拒绝，无法连接。
+2026-03-26 20:56:11,336 - celery.redirected - WARNING - 
+During handling of the above exception, another exception occurred:
+2026-03-26 20:56:11,336 - celery.redirected - WARNING - Traceback (most recent call last):
+2026-03-26 20:56:11,337 - celery.redirected - WARNING -   File "src/gevent/_waiter.py", line 122, in gevent._gevent_c_waiter.Waiter.switch
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\celery\worker\pidbox.py", line 118, in loop
+    connection.drain_events(timeout=1.0)
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\kombu\connection.py", line 343, in drain_events
+    return self.transport.drain_events(self.connection, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\kombu\transport\virtual\base.py", line 997, in drain_events
+    get(self._deliver, timeout=timeout)
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 601, in get
+    ret = self.handle_event(fileno, event)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 583, in handle_event
+    return self.on_readable(fileno), self
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 579, in on_readable
+    chan.handlers[type]()
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 931, in _receive
+    ret.append(self._receive_one(c))
+               ^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\kombu\transport\redis.py", line 941, in _receive_one
+    response = c.parse_response()
+               ^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\client.py", line 938, in parse_response
+    response = self._execute(conn, try_read)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\client.py", line 914, in _execute
+    return conn.retry.call_with_retry(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\retry.py", line 108, in call_with_retry
+    fail(error)
+2026-03-26 20:56:11,338 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\client.py", line 916, in <lambda>
+    lambda _: self._reconnect(conn),
+              ^^^^^^^^^^^^^^^^^^^^^
+2026-03-26 20:56:11,339 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\client.py", line 904, in _reconnect
+    conn.connect()
+2026-03-26 20:56:11,339 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 380, in connect
+    self.connect_check_health(check_health=True)
+2026-03-26 20:56:11,339 - celery.redirected - WARNING -   File "E:\Python\Lib\site-packages\redis\connection.py", line 397, in connect_check_health
+    raise ConnectionError(self._error_message(e))
+2026-03-26 20:56:11,339 - celery.redirected - WARNING - redis.exceptions.ConnectionError: Error 10061 connecting to 127.0.0.1:6379. [WinError 10061] 由于目标计算机积极拒绝，无法连接。.
+2026-03-26 20:56:11,339 - celery.redirected - WARNING - 2026-03-26T12:56:11Z
+2026-03-26 20:56:11,339 - celery.redirected - WARNING -  
+2026-03-26 20:56:11,339 - celery.redirected - WARNING - <built-in method switch of gevent._gevent_c_greenlet_primitives.TrackedRawGreenlet object at 0x000001BD9888C480> failed with ConnectionError
