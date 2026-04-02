@@ -11,9 +11,13 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+import os
+import environ
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+env = environ.Env()
 BASE_DIR = Path(__file__).resolve().parent.parent
+# 读取.env文件，在服务器项目的根路径上要创建一个
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 
 # Quick-start development settings - unsuitable for production
@@ -89,13 +93,13 @@ WSGI_APPLICATION = "OAback.wsgi.application"
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": 'oa_db',
-        "USER": 'root',
-        "PASSWORD": '333666999',
-        "HOST": '127.0.0.1',
-        "PORT": 3306,
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        "NAME": env.str('DB_NAME', 'oa_db'),
+        "USER": env.str('DB_USER', "root"),
+        "PASSWORD": env.str("DB_PASSWORD", "333666999"),
+        "HOST": env.str('DB_HOST', 'localhost'),
+        "PORT": env.str('DB_PORT', 3306),
     }
 }
 
@@ -174,15 +178,16 @@ DEFAULT_FROM_EMAIL = '2681895530@qq.com'
 
 # CELERY相关配置
 # 中间人的配置
-CELERY_BROKER_URL = 'redis://127.0.0.1:6379/1'
-CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/2'
+CELERY_BROKER_URL = env.str('CELERY_BROKER_URL', 'redis://127.0.0.1:6379/1')
+CELERY_RESULT_BACKEND = env.str('CELERY_RESULT_BACKEND', 'redis://127.0.0.1:6379/2')
+CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
 
 
 # 缓存设置
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6379/3",
+        "LOCATION": env.str('CACHE_URL', "redis://127.0.0.1:6379/3"),
     }
 }
 
