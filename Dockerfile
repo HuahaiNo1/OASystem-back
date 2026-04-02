@@ -1,5 +1,5 @@
 # 基础镜像
-ROM python:3.12.3
+FROM python:3.12.3
 
 COPY . /www/
 
