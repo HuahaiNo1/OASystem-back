@@ -1,0 +1,17 @@
+# 减小构建上下文、避免把密钥/本地环境打进镜像
+.git
+.venv
+venv
+__pycache__
+*.pyc
+.env
+.env.*
+!.env.example
+media
+logs
+*.log
+.idea
+.vscode
+.pytest_cache
+.mypy_cache
+htmlcov

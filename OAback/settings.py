@@ -184,7 +184,17 @@ CACHES = {
     }
 }
 
-# 日志配置
+# 日志：默认项目根下 logs/oa.log；Linux 上可设 LOG_FILE=/data/log/oa.log
+LOG_FILE = Path(
+    env.str("LOG_FILE", default=str(BASE_DIR / "logs" / "oa.log"))
+)
+LOG_FILE.parent.mkdir(parents=True, exist_ok=True)
+
+# 日志：控制台 + 文件均为 INFO，避免 DEBUG 刷屏；需要更细时临时改为 DEBUG
+_LOG_LEVEL = env.str("DJANGO_LOG_LEVEL", default="INFO").upper()
+if _LOG_LEVEL not in ("DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"):
+    _LOG_LEVEL = "INFO"
+
 LOGGING = {
     "version": 1,
     "disable_existing_loggers": True,
@@ -201,21 +211,22 @@ LOGGING = {
     },
     "handlers": {
         "console": {
-            "level": "DEBUG",
+            "level": _LOG_LEVEL,
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
         "file": {
-            "level": "DEBUG",
+            "level": _LOG_LEVEL,
             "class": "logging.FileHandler",
-            "filename": "/data/log/oa.log",
+            "filename": str(LOG_FILE),
             "formatter": "verbose",
         },
     },
     "loggers": {
         "django": {
             "handlers": ["console", "file"],
-            "level": "DEBUG",
+            "level": _LOG_LEVEL,
+            "propagate": False,
         },
     },
 }

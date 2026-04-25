@@ -18,5 +18,5 @@ ENTRYPOINT python manage.py migrate; \
 python manage.py initdepartments; \
 python manage.py inituser; \
 python manage.py initabsenttype; \
-celery -A oaback worker -l INFO --detach; \
+celery -A OAback worker -l INFO --detach; \
 uwsgi --ini uwsgi.ini
